@@ -1,13 +1,21 @@
 <template lang="pug">
-    div.todo-item
-        p {{ todo.title }}
+    div.todo-item(:class="{'is-completed':todo.completed}")
+        p 
+            input(type="checkbox", v-on:change="markComplete")
+            |{{ todo.title }}
+            button.del(@click="$emit('del-todo', todo.id)") X
 </template>
 
 
 <script>
 export default {
     name: "TodoItem",
-    props: ["todo"]
+    props: ["todo"],
+    methods: {
+        markComplete() {
+            this.todo.completed = !this.todo.completed;
+        }
+    }
 }
 </script>
 
